@@ -85,7 +85,8 @@ def benchmark(hero: str, villain: str, pairs: int, bench_seed: int = None):
 if __name__ == "__main__":
     hero = sys.argv[1] if len(sys.argv) > 1 else "my_bots/mibot"
     pairs = int(sys.argv[2]) if len(sys.argv) > 2 else 100
-    opponents = sys.argv[3:] or ["bots/caller"] + sorted(glob.glob("my_bots/sparringbots/*.py"))
+    seed = int(sys.argv[3])
+    opponents = sys.argv[4:] or ["bots/caller"] + sorted(glob.glob("my_bots/sparringbots/*.py"))
 
-    means = [benchmark(hero, opp, pairs) for opp in opponents]
+    means = [benchmark(hero, opp, pairs, seed) for opp in opponents]
     print(f"Average over {len(means)} opponents: {statistics.mean(means) * 100:.1f}%")
